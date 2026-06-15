@@ -1,0 +1,16 @@
+{
+  "name": "wizzcall",
+  "version": "1.0.0",
+  "description": "WizzCall — Random 1-on-1 audio chat inspired by Omegle",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "node-forge": "^1.4.0",
+    "selfsigned": "^5.5.0",
+    "socket.io": "^4.8.0"
+  }
+}
