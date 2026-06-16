@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WizzCall — Random Voice Chat</title>
+  <meta name="description" content="Talk to random strangers through voice. Anonymous, fun, and free. One voice at a time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+</head>
+<body>
+
+  <!-- ═══════════════════ Background Orbs ═══════════════════ -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══════════════════ LANDING SCREEN ═══════════════════ -->
+  <div id="screen-landing" class="screen active">
+    <div class="landing-content">
+      <div class="logo-section">
+        <h1 class="logo">Wizz<span class="logo-accent">Call</span></h1>
+        <p class="tagline">Talk to strangers. One voice at a time.</p>
+      </div>
+
+      <div class="online-badge" id="online-badge">
+        <span class="pulse-dot"></span>
+        <span id="online-count">0</span> people online now
+      </div>
+
+      <div class="features-row">
+        <div class="feature-chip">
+          <span>🎙️</span> Voice Chat
+        </div>
+        <div class="feature-chip">
+          <span>🎭</span> Anonymous
+        </div>
+        <div class="feature-chip">
+          <span>⚡</span> Instant
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn-cta">
+        <span class="btn-cta-glow"></span>
+        <span class="btn-cta-content">
+          <svg class="btn-mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          Start Talking
+        </span>
+      </button>
+
+      <p class="safety-note">
+        🔒 Conversations are anonymous and peer-to-peer. Be respectful and kind.
+        <br>By clicking "Start Talking", you agree to be a decent human being.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SEARCHING SCREEN ═══════════════════ -->
+  <div id="screen-searching" class="screen">
+    <div class="search-content">
+      <div class="pulse-rings">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="ring-center">
+          <svg class="search-mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+      </div>
+      <h2 class="search-text">Finding someone to talk to<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></h2>
+      <p class="search-sub">Hang tight — connecting you with a stranger</p>
+      <button id="btn-cancel" class="btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CALL SCREEN ═══════════════════ -->
+  <div id="screen-call" class="screen">
+    <div class="call-content">
+      <!-- Header -->
+      <div class="call-header">
+        <div class="partner-info">
+          <div class="avatar-ring">
+            <span class="avatar-emoji">🎭</span>
+          </div>
+          <div class="partner-details">
+            <h2 id="partner-nickname" class="partner-name">Stranger</h2>
+            <span id="call-status" class="call-status">
+              <span class="status-dot connected"></span>
+              Connected
+            </span>
+          </div>
+        </div>
+        <div id="call-timer" class="call-timer">00:00</div>
+      </div>
+
+      <!-- Icebreaker -->
+      <div class="icebreaker-card" id="icebreaker">
+        <div class="icebreaker-badge">🎲 Icebreaker</div>
+        <p id="icebreaker-text" class="icebreaker-question">What's the best trip you've ever taken?</p>
+      </div>
+
+      <!-- Audio Visualizer -->
+      <div class="visualizer-container">
+        <div class="visualizer-label">LIVE AUDIO</div>
+        <div class="visualizer" id="visualizer"></div>
+        <div class="visualizer-label sub">Their voice, visualized</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="call-controls">
+        <button id="btn-mute" class="control-btn" title="Toggle Mute">
+          <svg id="mute-icon-on" class="control-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <svg id="mute-icon-off" class="control-svg hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="1" y1="1" x2="23" y2="23"/>
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/>
+            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2c0 .76-.13 1.49-.35 2.17"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span class="control-label">Mute</span>
+        </button>
+
+        <button id="btn-skip" class="control-btn btn-skip-style" title="Skip to next person">
+          <svg class="control-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 4 15 12 5 20 5 4"/>
+            <line x1="19" y1="5" x2="19" y2="19"/>
+          </svg>
+          <span class="control-label">Skip</span>
+        </button>
+
+        <button id="btn-end" class="control-btn btn-end-style" title="End call">
+          <svg class="control-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"/>
+            <line x1="23" y1="1" x2="1" y2="23"/>
+          </svg>
+          <span class="control-label">End</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ DISCONNECTED OVERLAY ═══════════════════ -->
+  <div id="overlay-disconnected" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="disconnect-emoji">👋</div>
+      <h2 class="overlay-title">Stranger Left</h2>
+      <p class="overlay-sub">Your chat partner has disconnected.</p>
+      <div class="overlay-actions">
+        <button id="btn-find-new" class="btn-cta small">Find Someone New</button>
+        <button id="btn-go-home" class="btn-secondary">Go Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden audio element for remote stream -->
+  <audio id="remote-audio" autoplay playsinline></audio>
+
+  <!-- Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/webrtc.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
